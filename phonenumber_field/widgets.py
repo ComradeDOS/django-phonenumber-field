@@ -46,6 +46,11 @@ class PhoneNumberPrefixWidget(MultiWidget):
 
     def decompress(self, value):
         if value:
+            if isinstance(value, basestring):
+                try:
+                    value = PhoneNumber.from_string(value)
+                except:
+                    pass
             if type(value) == PhoneNumber:
                 if value.country_code and value.national_number:
                     return ["+%d" % value.country_code, value.national_number]
