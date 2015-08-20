@@ -56,11 +56,11 @@ class PhoneNumberPrefixWidget(MultiWidget):
             if type(value) == PhoneNumber:
                 if value.country_code and value.national_number:
                     return ["+%d" % value.country_code, value.national_number]
-            else:
-                return value.split('.')
         return [None, None]
 
     def value_from_datadict(self, data, files, name):
         values = super(PhoneNumberPrefixWidget, self).value_from_datadict(
             data, files, name)
+        if not all(values):
+            values = ['', '']
         return '%s%s' % tuple(values)
