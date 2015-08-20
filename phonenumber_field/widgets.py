@@ -4,6 +4,7 @@ from babel import Locale
 
 from phonenumbers.data import _COUNTRY_CODE_TO_REGION_CODE
 
+from django.conf import settings
 from django.utils import translation
 from django.forms import Select, TextInput
 from django.forms.widgets import MultiWidget
@@ -41,6 +42,7 @@ class PhoneNumberPrefixWidget(MultiWidget):
     - an input for local phone number
     """
     def __init__(self, attrs=None, initial=None):
+        initial = initial or getattr(settings, 'PHONENUMBER_DEFAULT_PREFIX', None)
         widgets = (PhonePrefixSelect(initial), TextInput(),)
         super(PhoneNumberPrefixWidget, self).__init__(widgets, attrs)
 
