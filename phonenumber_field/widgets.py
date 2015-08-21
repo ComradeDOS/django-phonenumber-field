@@ -28,7 +28,7 @@ class PhonePrefixSelect(Select):
                 if country_name:
                     choices.append((prefix, u'%s %s' % (prefix, country_name)))
         return super(PhonePrefixSelect, self).__init__(
-            choices=sorted(choices, key=lambda item: item[1]))
+            choices=sorted(choices, key=lambda item: item[0]))
 
     def render(self, name, value, *args, **kwargs):
         return super(PhonePrefixSelect, self).render(
