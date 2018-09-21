@@ -34,6 +34,14 @@ class PhonePrefixSelect(Select):
         return super(PhonePrefixSelect, self).render(
             name, value or self.initial, *args, **kwargs)
 
+    def create_option(self, name, value, label, selected, index, subindex=None, attrs=None):
+        if self.initial is not None:
+            if value == self.initial:
+                selected = True
+            else:
+                selected = False
+        return super(PhonePrefixSelect, self).create_option(name, value, label, selected, index, subindex, attrs)
+
 
 class PhoneNumberPrefixWidget(MultiWidget):
     """
