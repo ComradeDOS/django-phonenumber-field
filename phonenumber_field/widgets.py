@@ -29,7 +29,7 @@ class PhonePrefixSelect(Select):
                 if country_name:
                     choices.append((prefix, u'%s %s' % (prefix, country_name)))
         return super(PhonePrefixSelect, self).__init__(
-            choices=sorted(choices, key=lambda item: item[1]))
+            choices=sorted(choices, key=lambda item: item[1].split(' ', 1)[-1]))
 
     def create_option(self, name, value, label, selected, index, subindex=None, attrs=None):
         if not value:
