@@ -9,7 +9,7 @@ from django.utils import translation
 from django.forms import Select, TextInput
 from django.forms.widgets import MultiWidget
 
-from phonenumber_field.phonenumber import PhoneNumber
+from phonenumber_field.phonenumber import PhoneNumber, string_types
 
 
 class PhonePrefixSelect(Select):
@@ -20,7 +20,7 @@ class PhonePrefixSelect(Select):
     def __init__(self, initial=None):
         choices = [('', '---------')]
         locale = Locale(translation.to_locale(translation.get_language()))
-        for prefix, values in _COUNTRY_CODE_TO_REGION_CODE.iteritems():
+        for prefix, values in _COUNTRY_CODE_TO_REGION_CODE.items():
             prefix = '+%d' % prefix
             if initial and initial in values:
                 self.initial = prefix
@@ -56,7 +56,7 @@ class PhoneNumberPrefixWidget(MultiWidget):
 
     def decompress(self, value):
         if value:
-            if isinstance(value, basestring):
+            if isinstance(value, string_types):
                 try:
                     value = PhoneNumber.from_string(value)
                 except:
